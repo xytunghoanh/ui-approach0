@@ -1,13 +1,12 @@
 <template>
   <!-- progress bar (only for measuring snippet TeX render progress currently) -->
-  <ProgressBar :value="loading_percentage" class="progressbar" v-if="search_results !== null"/>
+  <ProgressBar :value="loading_percentage" class="progressbar" v-if="search_results !== null" />
 
   <!-- Top bar (menu and secondary query boxes) -->
   <div id="topbar" class="topbar p-component p-toolbar p-d-flex p-ai-start p-jc-between p-grid">
 
     <div class="p-d-flex p-ai-center" v-if="!qrybox_sinking">
-      <img :src="logo32" class="logo p-m-2" style="width: 32px; height: 32px;"
-           @click="onClickIcon" alt="logo"/>
+      <img :src="logo32" class="logo p-m-2" style="width: 32px; height: 32px;" @click="onClickIcon" alt="logo" />
       <div class="p-d-flex p-flex-column">
         <span class="logo-text no-select">Approach Zero</span>
         <div class="logo-text no-select">A math-aware search engine</div>
@@ -15,34 +14,32 @@
     </div>
 
     <div class="topbar-qrybox-first p-col p-mx-4" v-if="!qrybox_sinking">
-      <qrybox v-model="qrybox_model" @search="onClickSearch"/>
+      <qrybox v-model="qrybox_model" @search="onClickSearch" />
     </div>
 
     <div class="p-d-flex p-jc-end p-ai-center p-m-2">
       <i class="fa fa-sun-o"></i>
-      <InputSwitch v-model="nightTheme" class="p-m-2"/>
+      <InputSwitch v-model="nightTheme" class="p-m-2" />
       <i class="fa fa-moon-o"></i>
     </div>
 
     <!-- p-col-11 instead of 12 leaves nice padding in small device screen -->
     <div class="topbar-qrybox-second p-col-11 p-mx-4" v-if="!qrybox_sinking && !collapse">
-      <qrybox v-model="qrybox_model" @search="onClickSearch"/>
+      <qrybox v-model="qrybox_model" @search="onClickSearch" />
     </div>
 
-    <i class="fa collapse" :class="collapse ? 'fa-chevron-down': 'fa-chevron-up'"
-       @click="onToggleCollapse" v-if="!qrybox_sinking"></i>
+    <i class="fa collapse" :class="collapse ? 'fa-chevron-down' : 'fa-chevron-up'" @click="onToggleCollapse"
+      v-if="!qrybox_sinking"></i>
   </div>
 
   <!-- Initial query box -->
   <div v-if="qrybox_sinking">
 
-    <div class="vspacer" v-if="!qrybox_squeeze"/>
+    <div class="vspacer" v-if="!qrybox_squeeze" />
 
-    <div style="height: 100%;" v-if="!qrybox_squeeze"
-         class="rellax" data-rellax-speed="1">
+    <div style="height: 100%;" v-if="!qrybox_squeeze" class="rellax" data-rellax-speed="1">
       <div class="p-d-flex p-jc-center p-mb-5">
-        <img :src="logo128" class="logo p-mx-3" style="width: 64px; height: 64px;"
-         @click="onClickIcon" alt="logo"/>
+        <img :src="logo128" class="logo p-mx-3" style="width: 64px; height: 64px;" @click="onClickIcon" alt="logo" />
         <div class="p-d-flex p-flex-column p-jc-center p-mx-1">
           <span class="logo-text-large no-select">Approach Zero</span>
           <div class="logo-text-large no-select">A math-aware search engine</div>
@@ -52,40 +49,37 @@
 
     <div class="p-d-flex p-jc-center p-mt-1">
       <div class="p-mx-3" style="width: 100%;">
-        <qrybox v-model="qrybox_model" v-model:squeeze="qrybox_squeeze" @search="onClickSearch"/>
+        <qrybox v-model="qrybox_model" v-model:squeeze="qrybox_squeeze" @search="onClickSearch" />
       </div>
     </div>
 
-    <div class="vspacer" v-if="!qrybox_squeeze"/>
+    <div class="vspacer" v-if="!qrybox_squeeze" />
 
     <!-- Carousel Showcase -->
     <div class="carousel-overlay">
-      <Carousel :value="example_queries" :responsiveOptions="carousel_opts" :page="0"
-        class="carousel-container" :numVisible="3" :numScroll="1">
+      <Carousel :value="example_queries" :responsiveOptions="carousel_opts" :page="0" class="carousel-container"
+        :numVisible="3" :numScroll="1">
         <template #header>
           <h5 class="carousel-title">Try the sample queries below!</h5>
         </template>
         <template #item="carousel_item">
-          <div class="p-d-flex p-jc-center p-ai-center"
-               style="height: 100%; min-width: 200px;">
-            <div class="p-p-3 p-m-2 p-card" v-if="carousel_item.data"
-                 style="max-width: 70vw; overflow-x: hidden;">
+          <div class="p-d-flex p-jc-center p-ai-center" style="height: 100%; min-width: 200px;">
+            <div class="p-p-3 p-m-2 p-card" v-if="carousel_item.data" style="max-width: 70vw; overflow-x: hidden;">
               <!-- Sample Tags -->
               <div class="tags carousel-tags">
-                <Tag v-for="tag in carousel_item.data.showcase.tags" class="p-m-1"
-                  @click="onClickTag(tag)" :key="tag" :value="'⋅ ' + tag">
+                <Tag v-for="tag in carousel_item.data.showcase.tags" class="p-m-1" @click="onClickTag(tag)" :key="tag"
+                  :value="'⋅ ' + tag">
                 </Tag>
               </div>
               <!-- Sample Content -->
               <div class="p-d-flex p-flex-wrap p-jc-center p-ai-center">
                 <div class="carousel-content" style="max-width: 330px;">
                   <p style="line-height: 2.5">
-                    {{carousel_item.data.showcase.content}}
+                    {{ carousel_item.data.showcase.content }}
                   </p>
                 </div>
                 <div class="p-px-3">
-                  <button type="button" class="carousel-srchbtn"
-                    @click="onClickShowcase(carousel_item.data)">
+                  <button type="button" class="carousel-srchbtn" @click="onClickShowcase(carousel_item.data)">
                     <span class="fa fa-search p-button-icon"></span>
                   </button>
                 </div>
@@ -100,19 +94,18 @@
   </div>
 
   <!-- Spinner loader and error message -->
-  <div style="position: fixed; width: 100%;" v-if="loading"
-      :style="emerge_style(1)">
+  <div style="position: fixed; width: 100%;" v-if="loading" :style="emerge_style(1)">
 
-    <div class="vspacer"/>
+    <div class="vspacer" />
 
     <div class="p-d-flex p-jc-center">
-      <ProgressSpinner v-if="loading_error.length == 0"/>
+      <ProgressSpinner v-if="loading_error.length == 0" />
 
       <div class="p-message p-component p-message-warn" v-else>
         <div class="p-message-wrapper p-d-flex">
           <span class="p-message-icon fa fa-exclamation-triangle"></span>
           <div class="p-message-text" style="max-width: 20rem;">
-            {{loading_error}}
+            {{ loading_error }}
           </div>
         </div>
       </div>
@@ -127,37 +120,36 @@
   <!-- Search results -->
   <div v-if="search_results !== null">
     <div class="p-d-flex p-flex-column p-ai-center p-jc-center">
-      <div v-for="(hit, idx) in search_results" :key="hit.docid"
-           class="p-p-4 p-m-3 p-card search-res">
-        <span class="docid"> {{hit.docid}} </span>
-        <span class="score"> {{hit.score}} </span>
-        <a class="title" target="_blank" :href="hit.field_url" rel="noopener"
-         v-html="hit.field_title" @click="onClickURL(idx)" @click.middle="onClickURL(idx)">
+      <div v-for="(hit, idx) in search_results" :key="hit.docid" class="p-p-4 p-m-3 p-card search-res">
+        <span class="docid"> {{ hit.docid }} </span>
+        <span class="score"> {{ hit.score }} </span>
+        <a class="title" target="_blank" :href="hit.field_url || hit.url || '#'" rel="noopener" v-html="hit.field_title || hit.title || ''"
+          @click="onClickURL(idx)" @click.middle="onClickURL(idx)">
         </a>
-        <span class="url">
-          <img v-if="hit.field_url.indexOf('math.stackexchange') >= 0" :src="logo_mse"/>
-          <img v-else-if="hit.field_url.indexOf('artofproblemsolving') >= 0" :src="logo_aops"/>
-          {{hit.field_url}}
+        <span class="url" v-if="hit.field_url || hit.url">
+          <img v-if="(hit.field_url || hit.url || '').indexOf('math.stackexchange') >= 0" :src="logo_mse" />
+          <img v-else-if="(hit.field_url || hit.url || '').indexOf('artofproblemsolving') >= 0" :src="logo_aops" />
+          {{ hit.field_url || hit.url }}
         </span>
-        <div class="snippet">
-          <p v-html="snippetPreprocess(idx, hit.field_content)"></p>
+        <div class="snippet" v-if="hit.field_content || hit.snippet">
+          <p v-html="snippetPreprocess(idx, hit.field_content || hit.snippet || '')"></p>
         </div>
-        <div class="tags">
-          <Tag v-for="tag in splitTags(hit.field_tags)" class="p-m-1"
-               style="font-size: 0.9rem !important; font-weight: 500 !important;"
-               @click="onClickTag(tag)" :key="tag" :value="'⋅ ' + tag" rounded>
+        <div class="tags" v-if="hit.field_tags || hit.tags">
+          <Tag v-for="tag in splitTags(hit.field_tags || hit.tags || '')" class="p-m-1"
+            style="font-size: 0.9rem !important; font-weight: 500 !important;" @click="onClickTag(tag)" :key="tag"
+            :value="'⋅ ' + tag" rounded>
           </Tag>
         </div>
       </div>
 
       <div style="margin-top: 4rem; p-d-flex; p-grid;">
-        <paging style="" @goto="onGotoPage" :cur_page="pagination_curpage" :tot_pages="pagination_totpage"/>
+        <paging style="" @goto="onGotoPage" :cur_page="pagination_curpage" :tot_pages="pagination_totpage" />
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-  <Footer v-bind:footerStyle="footer_style"/>
+  <Footer v-bind:footerStyle="footer_style" />
 </template>
 
 <script>
@@ -175,7 +167,7 @@ import footer from './footer.vue'
 export default {
   components: { qrybox, Footer: footer, paging },
 
-  mounted: function() {
+  mounted: function () {
     /* some setups */
     this.attachDefaultTheme()
     new Rellax('.rellax')
@@ -185,12 +177,12 @@ export default {
 
     /* window resizing listener */
     const vm = this
-    $(window).resize(function() {
+    $(window).resize(function () {
       vm.onResize()
     })
 
     /* handle browser back/forward button */
-    window.addEventListener('popstate', function(event) {
+    window.addEventListener('popstate', function (event) {
       vm.onPopState(event.state)
     })
 
@@ -198,7 +190,7 @@ export default {
     $("html, body").animate({ scrollTop: 0 })
 
     /* take URI Query parameters (if any) */
-    const getUriQueryParam = function(key, defaultVal) {
+    const getUriQueryParam = function (key, defaultVal) {
       const params = window.location.search
       const match = params.match(new RegExp(`${key}=([^&]+)`, 'i'))
       if (match && match[1]) {
@@ -228,14 +220,14 @@ export default {
       TeX_render.render('.carousel-content')
     })
 
-    this.$nextTick(function() {
+    this.$nextTick(function () {
       TeX_render.render('.carousel-content')
       this.footer_style = this.footerStickiness()
     })
   },
 
   watch: {
-    nightTheme: function(val) {
+    nightTheme: function (val) {
       if (val) {
         this.changeTheme('night.css')
       } else {
@@ -243,10 +235,10 @@ export default {
       }
     },
 
-    search_results: function() {
+    search_results: function () {
       this.loading_percentage = 100
 
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         TeX_render.render('.search-res > .title')
         TeX_render.render('.search-res > .snippet', (a, b) => {
           let percentage = Math.ceil((a * 100) / b)
@@ -256,17 +248,17 @@ export default {
       })
     },
 
-    qrybox_sinking: function() {
+    qrybox_sinking: function () {
       /* update footer stickiness on sinking state change */
       this.footer_style = this.footerStickiness()
     },
 
-    qrybox_squeeze: function(val) {
+    qrybox_squeeze: function (val) {
       if (val) $("html, body").animate({ scrollTop: 0 })
     }
   },
 
-  data: function() {
+  data: function () {
     return {
       logo128,
       logo32,
@@ -324,7 +316,7 @@ export default {
     emerge_style(defaultZIndex) {
       return {
         'z-index': (this.ceil_opacity == 0 ? '-1' : `${defaultZIndex || 0}`),
-        'visibility': (this.ceil_opacity < 0.5 ? 'hidden': 'visible')
+        'visibility': (this.ceil_opacity < 0.5 ? 'hidden' : 'visible')
       }
     },
 
@@ -401,7 +393,7 @@ export default {
       this.loading = true
 
       /* perform search */
-      setTimeout(async function() {
+      setTimeout(async function () {
         try {
           const relayBase = vm.getRelayUrl()
           const sep = relayBase.includes('?') ? '&' : '?'
@@ -415,9 +407,15 @@ export default {
           const res = await response.json()
           const ret_code = (res['ret_code'] === undefined) ? 101 : res['ret_code']
           if (ret_code == 0) {
-            const ret_hits = res['hits']
-            const tot_pages = res['tot_pages']
-            vm.search_results = ret_hits
+            const ret_hits = res['hits'] || []
+            const tot_pages = res['tot_pages'] || 0
+            vm.search_results = ret_hits.map(hit => ({
+              ...hit,
+              field_url: hit.field_url || hit.url || '',
+              field_title: hit.field_title || hit.title || '',
+              field_content: hit.field_content || hit.snippet || hit.content || '',
+              field_tags: hit.field_tags || hit.tags || '',
+            }))
             vm.pagination_totpage = tot_pages
             vm.pagination_curpage = page
             vm.loading = false
@@ -434,6 +432,8 @@ export default {
     },
 
     snippetPreprocess(idx, snippet) {
+      if (!snippet || typeof snippet !== 'string') return ''
+
       /* ensure $a<b$ is converted into $a < b$, otherwise it may render incorrectly */
       snippet = snippet.replace(/\[imath\]([\s\S]+?)\[\/imath\]/g, function (match, group) {
         return '[imath]' + group.split('<').join(' < ') + '[/imath]'
@@ -462,6 +462,9 @@ export default {
     },
 
     splitTags(tags_field) {
+      if (!tags_field) return []
+      if (Array.isArray(tags_field)) return tags_field
+      if (typeof tags_field !== 'string') return []
       tags_field = tags_field.trim()
       if (tags_field == '') {
         return []
@@ -476,7 +479,7 @@ export default {
 
       /* NOTE: The canonicalizedQueryArr() function requires updated chips in
        * qrybox (need one cycle of conversion from qrybox_model raw string). */
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         /* canonicalize what is inside of the qrybox */
         const arr = window.$qrybox.canonicalizedQueryArr(false)
         const canonicalized_rawqry = arr.join(', ')
@@ -509,8 +512,8 @@ export default {
 
       /* send click-through data */
       $.post(`${A0_RELAY_URL}/click-relay.php`,
-        JSON.stringify({qry, clicks}) /* transfer JSON */
-      ).fail(function(res, err) {
+        JSON.stringify({ qry, clicks }) /* transfer JSON */
+      ).fail(function (res, err) {
         console.error('[click-through ajax failed]', err)
       })
     },
@@ -540,7 +543,7 @@ export default {
       /* calculate opacity based on gaps */
       const ceil_bottom = (ceil_ele.offset() === undefined) ?
         window.pageYOffset : ceil_ele.offset().top + ceil_ele.outerHeight()
-      const footer_top  = footer_ele.offset().top
+      const footer_top = footer_ele.offset().top
       const over_depth = Math.max(0, ceil_bottom - footer_top)
       const grace_gaps = 150
       const opacity = 1 - Math.min(over_depth, grace_gaps) / grace_gaps
@@ -577,7 +580,8 @@ export default {
 </script>
 
 <style>
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -594,7 +598,8 @@ body {
 
 .progressbar {
   top: 0;
-  z-index: 1000; /* 999 + 1 */
+  z-index: 1000;
+  /* 999 + 1 */
   width: 100%;
 }
 
@@ -663,7 +668,8 @@ i.collapse {
 }
 
 .carousel-overlay {
-  pointer-events: none; /* let through keyboard btn clicks */
+  pointer-events: none;
+  /* let through keyboard btn clicks */
   display: flex;
   justify-content: center;
 }
@@ -674,7 +680,8 @@ i.collapse {
   border: 2px solid var(--surface-c);
   padding-left: 1rem;
   backdrop-filter: blur(3px);
-  pointer-events: auto; /* accept clicks again */
+  pointer-events: auto;
+  /* accept clicks again */
 }
 
 /*
@@ -743,15 +750,17 @@ i.collapse {
 }
 
 .search-res {
-  max-width: 728px; /* 768 - 40 */
+  max-width: 728px;
+  /* 768 - 40 */
   width: 100%;
 }
 
-.search-res > .docid,.score {
+.search-res>.docid,
+.score {
   display: none;
 }
 
-.search-res > a.title {
+.search-res>a.title {
   text-decoration: none;
   font-size: 1.2em;
   display: block;
@@ -761,46 +770,46 @@ i.collapse {
   padding-bottom: 1rem;
 }
 
-.search-res > a.title {
+.search-res>a.title {
   overflow-x: auto;
 }
 
-.search-res > a.title:visited {
+.search-res>a.title:visited {
   color: #753d90;
 }
 
-.search-res > span.url > img {
+.search-res>span.url>img {
   vertical-align: text-top;
   width: 16px;
   height: 16px;
   margin-right: 3px;
 }
 
-.search-res > span.url {
+.search-res>span.url {
   color: #006d21;
   display: block;
   word-break: break-all;
 }
 
-.search-res > div.snippet {
+.search-res>div.snippet {
   overflow-x: auto;
 }
 
-.search-res > div.snippet > p {
+.search-res>div.snippet>p {
   line-height: 1.5;
 }
 
-.search-res > div.tags {
+.search-res>div.tags {
   word-break: break-word;
   vertical-align: middle;
 }
 
-div.tags > span {
+div.tags>span {
   display: inline-block;
   cursor: pointer;
 }
 
-em.hl > span > svg {
+em.hl>span>svg {
   background-color: #FFC;
   color: black;
 }
@@ -811,27 +820,29 @@ em.hl {
   font-style: normal;
 }
 
-.carousel-title, .carousel-tags, .carousel-content {
+.carousel-title,
+.carousel-tags,
+.carousel-content {
   user-select: none;
 }
 
 .p-carousel-prev:before {
-  display:inline-block;
-  font:normal normal normal 14px/1 FontAwesome;
-  font-size:inherit;
-  text-rendering:auto;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  content:"\f053"
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f053"
 }
 
 .p-carousel-next:before {
-  display:inline-block;
-  font:normal normal normal 14px/1 FontAwesome;
-  font-size:inherit;
-  text-rendering:auto;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  content:"\f054"
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f054"
 }
 </style>
