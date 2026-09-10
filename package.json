@@ -10,8 +10,7 @@
     "watch": "vite --port 19985",
     "build": "vite build",
     "preview": "vite preview --port 19985",
-    "serve": "bun server.js",
-    "test": "bun test"
+    "serve": "bun server.js"
   },
   "dependencies": {
     "mitt": "^3.0.1",
