@@ -29,9 +29,12 @@ Build and run the production server:
 $ bun run build
 $ bun run serve
 ```
+Lệnh `bun run serve` sẽ tự động khởi động **cả hai server cùng lúc**:
+- **Cổng 19985**: Giao diện Web (Frontend UI) + API relay nội bộ
+- **Cổng 8080**: API relay backend độc lập (Search Relay & Click Relay)
 
 ### Docker Setup
 ```sh
 $ docker build -t ui-approach0 .
-$ docker run -p 19985:19985 ui-approach0
+$ docker run -p 19985:19985 -p 8080:8080 ui-approach0
 ```

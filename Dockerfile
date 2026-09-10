@@ -14,5 +14,5 @@ ARG A0_RELAY_URL=/search-relay/
 ENV A0_RELAY_URL=$A0_RELAY_URL
 RUN bun run build
 
-EXPOSE 19985
+EXPOSE 19985 8080
 CMD ["bun", "run", "serve"]

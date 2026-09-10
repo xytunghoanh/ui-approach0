@@ -257,7 +257,8 @@ export async function handleRelayRequest(req) {
   if (
     pathname === '/search-relay' ||
     pathname === '/search-relay/' ||
-    pathname === '/search-relay.php'
+    pathname === '/search-relay.php' ||
+    (pathname === '/' && url.searchParams.has('q'))
   ) {
     return await handleSearchRelay(req, url);
   }
