@@ -1,0 +1,26 @@
+{
+  "name": "ui-approach0",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Approach Zero front-end",
+  "author": "Wei Zhong",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --port 19985",
+    "watch": "vite --port 19985",
+    "build": "vite build",
+    "preview": "vite preview --port 19985",
+    "serve": "bun server.js",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "mitt": "^3.0.1",
+    "primeflex": "^2.0.0",
+    "primevue": "^3.53.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.2.0"
+  }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Approach Zero</title>
+
+    <meta name="description" content="Approach Zero: A math-aware search engine.">
+    <meta name="keywords" content="approach0, approach zero, approachO, mathematics, math, formula, equation, math search, equation search, formula search, search engine"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+
+    <link rel="search" type="application/opensearchdescription+xml" href="/resource/opensearch.xml" title="Approach Zero">
+    <link rel="icon" type="image/x-icon" href="/resource/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+          as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript> <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"> </noscript>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/approach0/fork-mathquill@c82mYMo1HhK1/build/mathquill.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" type="text/css"/>
+
+    <link rel="preload" href="/light.css" as="style">
+    <link rel="preload" href="/night.css" as="style">
+
+  </head>
+  <body>
+    <css-doodle class="doodle rellax" data-rellax-speed="3">
+      @grid: 40x2 / 60%;
+      @place-cell: center;
+      @size: calc(100% / @size * @i);
+
+      transform: rotate(calc(@i * 5deg));
+
+      border-radius: 30%;
+      border: 1px solid hsla(
+        calc(10 + 4 * @i), 70%, 68%, @r.8
+      );
+    </css-doodle>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+    <div id="app"></div>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/css-doodle@0.8.4/css-doodle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/approach0/fork-mathquill@c82mYMo1HhK1/build/mathquill.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js"></script>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+
