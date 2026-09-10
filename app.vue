@@ -380,6 +380,19 @@ export default {
       this.pushState(rawqry, page)
     },
 
+    getRelayUrl() {
+      let raw = (typeof A0_RELAY_URL !== 'undefined' ? A0_RELAY_URL : '/search-relay/').trim()
+      if (
+        !raw.startsWith('http://') &&
+        !raw.startsWith('https://') &&
+        !raw.startsWith('//') &&
+        !raw.startsWith('/')
+      ) {
+        raw = `http://${raw}`
+      }
+      return raw
+    },
+
     performSearch(rawqry, page) {
       /* setup loading page */
       const vm = this
@@ -390,8 +403,9 @@ export default {
       /* perform search */
       setTimeout(async function() {
         try {
-          const sep = A0_RELAY_URL.includes('?') ? '&' : '?'
-          const url = `${A0_RELAY_URL}${sep}p=${page}&q=${encqry}`
+          const relayBase = vm.getRelayUrl()
+          const sep = relayBase.includes('?') ? '&' : '?'
+          const url = `${relayBase}${sep}p=${page}&q=${encqry}`
           const response = await fetch(url, {
             headers: { Accept: 'application/json' }
           })

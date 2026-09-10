@@ -58,11 +58,21 @@ export default defineConfig(({ mode }) => {
   // Load env variables from .env, .env.local, etc.
   const env = loadEnv(mode, process.cwd(), '')
 
-  const relayUrl =
+  let relayUrl =
     env.A0_RELAY_URL ||
     env.VITE_A0_RELAY_URL ||
     process.env.A0_RELAY_URL ||
     '/search-relay/'
+
+  relayUrl = relayUrl.trim()
+  if (
+    !relayUrl.startsWith('http://') &&
+    !relayUrl.startsWith('https://') &&
+    !relayUrl.startsWith('//') &&
+    !relayUrl.startsWith('/')
+  ) {
+    relayUrl = `http://${relayUrl}`
+  }
 
   return {
     plugins: [vue(), relayPlugin()],
