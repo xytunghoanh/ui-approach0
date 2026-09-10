@@ -51,6 +51,13 @@ if (BACKEND_PORT !== FRONTEND_PORT) {
     const backendServer = Bun.serve({
       port: BACKEND_PORT,
       async fetch(req) {
+        const url = new URL(req.url);
+        if (url.pathname === '/' && url.searchParams.has('q')) {
+          const forwardUrl = new URL(req.url);
+          forwardUrl.pathname = '/search-relay';
+          const forwardReq = new Request(forwardUrl.toString(), req);
+          return await handleRelayRequest(forwardReq);
+        }
         const relayRes = await handleRelayRequest(req);
         if (relayRes) {
           return relayRes;
