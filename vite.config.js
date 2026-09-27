@@ -6,11 +6,7 @@ export default defineConfig(({ mode }) => {
   // Load env variables from .env, .env.local, etc.
   const env = loadEnv(mode, process.cwd(), "");
 
-  let relayUrl =
-    env.A0_RELAY_URL ||
-    env.VITE_A0_RELAY_URL ||
-    process.env.A0_RELAY_URL ||
-    "http://localhost:8080/search-relay.php";
+  let relayUrl = "/api/search-relay.php";
 
   relayUrl = relayUrl.trim();
   if (
